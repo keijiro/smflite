@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace SmfLite
 {
-    public struct FileContainer
+    public struct MidiFileContainer
     {
         public int division;
-        public List<Track> tracks;
+        public List<MidiTrack> tracks;
 
-        public FileContainer (int division, List<Track> tracks)
+        public MidiFileContainer (int division, List<MidiTrack> tracks)
         {
             this.division = division;
             this.tracks = tracks;

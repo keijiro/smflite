@@ -1,13 +1,13 @@
 namespace SmfLite
 {
-    // MIDI message class.
-    public struct Message
+    // MIDI event struct.
+    public struct MidiEvent
     {
         public byte status;
         public byte data1;
         public byte data2;
-            
-        public Message (byte status, byte data1, byte data2)
+
+        public MidiEvent (byte status, byte data1, byte data2)
         {
             this.status = status;
             this.data1 = data1;

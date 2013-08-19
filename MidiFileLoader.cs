@@ -2,12 +2,12 @@ using System.Collections.Generic;
 
 namespace SmfLite
 {
-    public static class FileLoader
+    public static class MidiFileLoader
     {
-        public static FileContainer Load (byte[] data)
+        public static MidiFileContainer Load (byte[] data)
         {
-            var tracks = new List<Track> ();
-            var reader = new StreamReader (data);
+            var tracks = new List<MidiTrack> ();
+            var reader = new MidiDataStreamReader (data);
 
             // Chunk type.
             if (new string (reader.ReadChars (4)) != "MThd") {
@@ -36,12 +36,12 @@ namespace SmfLite
                 tracks.Add (ReadTrack (reader));
             }
 
-            return new FileContainer (division, tracks);
+            return new MidiFileContainer (division, tracks);
         }
 
-        static Track ReadTrack (StreamReader reader)
+        static MidiTrack ReadTrack (MidiDataStreamReader reader)
         {
-            var track = new Track ();
+            var track = new MidiTrack ();
 
             // Chunk type.
             if (new string (reader.ReadChars (4)) != "MTrk") {
@@ -71,7 +71,7 @@ namespace SmfLite
                     // MIDI event
                     byte data1 = reader.ReadByte ();
                     byte data2 = ((ev & 0xe0) == 0xc0) ? (byte)0 : reader.ReadByte ();
-                    track.AddDeltaAndMessage (delta, new Message (ev, data1, data2));
+                    track.AddEvent (delta, new MidiEvent (ev, data1, data2));
                 }
             }
                

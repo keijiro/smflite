@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using DeltaMessagePairList = System.Collections.Generic.List<SmfLite.Track.DeltaMessagePair>;
+using System.Collections.Generic;
+using DeltaEventPairList = System.Collections.Generic.List<SmfLite.MidiTrack.DeltaEventPair>;
 
 namespace SmfLite
 {
-    public class Sequencer
+    public class MidiTrackSequencer
     {
-        DeltaMessagePairList.Enumerator enumerator;
+        DeltaEventPairList.Enumerator enumerator;
         bool playing;
         float pulsePerSecond;
         float pulseToNext;
@@ -15,13 +15,13 @@ namespace SmfLite
             get { return playing; }
         }
 
-        public Sequencer (Track track, int ppqn, float bpm)
+        public MidiTrackSequencer (MidiTrack track, int ppqn, float bpm)
         {
             pulsePerSecond = bpm / 60.0f * ppqn;
             enumerator = track.GetEnumerator ();
         }
 
-        public List<Message> Start ()
+        public List<MidiEvent> Start ()
         {
             if (enumerator.MoveNext ()) {
                 pulseToNext = enumerator.Current.delta;
@@ -33,7 +33,7 @@ namespace SmfLite
             }
         }
 
-        public List<Message> Advance (float deltaTime)
+        public List<MidiEvent> Advance (float deltaTime)
         {
             if (!playing) {
                 return null;
@@ -45,11 +45,11 @@ namespace SmfLite
                 return null;
             }
 
-            var messages = new List<Message> ();
+            var messages = new List<MidiEvent> ();
 
             while (pulseCounter >= pulseToNext) {
                 var pair = enumerator.Current;
-                messages.Add (pair.message);
+                messages.Add (pair.midiEvent);
                 if (!enumerator.MoveNext ()) {
                     playing = false;
                     break;
