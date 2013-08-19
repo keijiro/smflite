@@ -6,8 +6,8 @@ smflite
 What it is used for
 -------------------
 
-- Audio/visual app: Synchronize animations to pre-recorded audio clips.
-- Rhythm games: Retrieve timing information from song data.
+- Audio visual app: synchronize animations to pre-recorded audio clips.
+- Rhythm games: retrieve timing information from song data.
 
 What it isn't used for
 ----------------------
@@ -18,31 +18,47 @@ What it isn't used for
 How to use
 ----------
 
-1. Load a MIDI file with **MidiFileLoader.Load**. It returns a **MidiFileContainer** instance which contains song data.
+At first load a MIDI file with `MidiFileLoader.Load`. It returns
+a **MidiFileContainer** instance which contains the song data.
 
-	MidiFileContainer song = MidiFileLoader.Load (smfAsset.bytes);
+```C#
+MidiFileContainer song = MidiFileLoader.Load (smfAsset.bytes);
+```
 
-2. Create **MidiTrackSequencer** with song data. You can specify the BPM for playback here.
+And then create `MidiTrackSequencer` with the song data.
+You can specify the BPM for playback here.
 
-	seq = new MidiTrackSequencer (song.tracks[0], song.division, bpm);
+```C#
+seq = new MidiTrackSequencer (song.tracks[0], song.division, bpm);
+```
 
-3. Call the **Play** method in the sequencer class. It return a set of **MidiEvent** on the initial point of the song.
+Call the `Play` method in the sequencer class. It return a set of
+`MidiEvent` on the starting point of the song.
 
-	foreach (MidiEvent e in seq.Start ()) {
-	  // Do something with MidiEvent.
-	}
+```C#
+foreach (MidiEvent e in seq.Start ()) {
+  // Do something with MidiEvent.
+}
+```
 
-4. Call the **Advance** method in every frame. You should give a delta time, and then it returns a set of MidiEvent which occurred between the previous frame and the current frame.
+Call the `Advance` method in every frame. You should give a delta-
+time, and then it returns a set of MidiEvent which occurred between
+the previous frame and the current frame.
 
-	void Update() {
-	  foreach (MidiEvent e in seq.Advance (Time.deltaTime)) {
-	    // Do something with MidiEvent.
-	  }
-	}
+```C#
+void Update() {
+  if (seq.Playing) {
+    foreach (MidiEvent e in seq.Advance (Time.deltaTime)) {
+      // Do something with MidiEvent.
+    }
+  }
+}
+```
 
-5. Run until **Playing** property become false.
+You can run it until `Playing` property becomes false.
 
-You can see an example [here](https://github.com/keijiro/unity-smflite-test).
+For the detailed usage, see an example
+[here](https://github.com/keijiro/unity-smflite-test).
 
 License
 -------
