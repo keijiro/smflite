@@ -42,7 +42,7 @@ foreach (MidiEvent e in seq.Start ()) {
 ```
 
 Call the `Advance` method in every frame. You should give a delta-time,
-and then it returns a set of MidiEvent which occurred between
+and then it returns a set of `MidiEvent` which occurred between
 the previous frame and the current frame.
 
 ```C#
@@ -55,7 +55,7 @@ void Update() {
 }
 ```
 
-You can run it until `Playing` property becomes false.
+You can run it until the `Playing` property becomes false.
 
 For the detailed usage, see an example
 [here](https://github.com/keijiro/unity-smf-test).
