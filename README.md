@@ -9,8 +9,8 @@ What it is used for
 - Audio visual app: synchronize animations to pre-recorded audio clips.
 - Rhythm games: retrieve timing information from song data.
 
-What it isn't used for
-----------------------
+What it can't be used for
+-------------------------
 
 - Playback MIDI songs.
 - Retrieve meta-data or SysEx data from SMF.
@@ -18,8 +18,8 @@ What it isn't used for
 How to use
 ----------
 
-At first load a MIDI file with `MidiFileLoader.Load`. It returns
-a **MidiFileContainer** instance which contains the song data.
+First of all, load a MIDI file with `MidiFileLoader.Load`. It returns
+a `MidiFileContainer` instance which contains the song data.
 
 ```C#
 MidiFileContainer song = MidiFileLoader.Load (smfAsset.bytes);
@@ -37,19 +37,19 @@ Call the `Play` method in the sequencer class. It return a set of
 
 ```C#
 foreach (MidiEvent e in seq.Start ()) {
-  // Do something with MidiEvent.
+  // Do something with a MidiEvent.
 }
 ```
 
-Call the `Advance` method in every frame. You should give a delta-
-time, and then it returns a set of MidiEvent which occurred between
+Call the `Advance` method in every frame. You should give a delta-time,
+and then it returns a set of MidiEvent which occurred between
 the previous frame and the current frame.
 
 ```C#
 void Update() {
   if (seq.Playing) {
     foreach (MidiEvent e in seq.Advance (Time.deltaTime)) {
-      // Do something with MidiEvent.
+      // Do something with a MidiEvent.
     }
   }
 }
@@ -58,7 +58,7 @@ void Update() {
 You can run it until `Playing` property becomes false.
 
 For the detailed usage, see an example
-[here](https://github.com/keijiro/unity-smflite-test).
+[here](https://github.com/keijiro/unity-smf-test).
 
 License
 -------
