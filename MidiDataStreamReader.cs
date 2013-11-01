@@ -20,6 +20,11 @@ namespace SmfLite
             offset += length;
         }
 
+        public byte PeekByte ()
+        {
+            return data [offset];
+        }
+
         public byte ReadByte ()
         {
             return data [offset++];
