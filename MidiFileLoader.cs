@@ -49,7 +49,8 @@ namespace SmfLite
             }
             
             // Chunk length.
-            var chunkEnd = reader.Offset + reader.ReadBEInt32 ();
+            var chunkEnd = reader.ReadBEInt32 ();
+            chunkEnd += reader.Offset;
 
             // Read delta-time and event pairs.
             while (reader.Offset < chunkEnd) {
