@@ -1,7 +1,8 @@
 smflite
 =======
 
-**smflite** is a minimal toolkit to handle standard MIDI files (SMF) on Unity.
+**smflite** is a minimal class library for handling standard MIDI files (SMF)
+on Unity.
 
 What it is used for
 -------------------
@@ -12,28 +13,28 @@ What it is used for
 What it can't be used for
 -------------------------
 
-- Playback MIDI songs.
-- Retrieve meta-data or SysEx data from SMF.
+- Playback MIDI song files.
+- Retrieve metadata or sys-ex data from SMFs.
 
 How to use
 ----------
 
-First of all, load a MIDI file with `MidiFileLoader.Load`. It returns
-a `MidiFileContainer` instance which contains the song data.
+First of all, load a MIDI file with `MidiFileLoader.Load`. It returns a
+`MidiFileContainer` instance which contains song data.
 
 ```C#
 MidiFileContainer song = MidiFileLoader.Load (smfAsset.bytes);
 ```
 
-And then create `MidiTrackSequencer` with the song data.
-You can specify the BPM for playback here.
+And then create `MidiTrackSequencer` with the song data. You can specify a BPM
+value for playback here.
 
 ```C#
 seq = new MidiTrackSequencer (song.tracks[0], song.division, bpm);
 ```
 
-Call the `Play` method in the sequencer class. It return a set of
-`MidiEvent` on the starting point of the song.
+Call the `Start` method with the sequencer class. It return a set of midi
+events (`MidiEvent`) which is placed at the beginning of the song.
 
 ```C#
 foreach (MidiEvent e in seq.Start ()) {
@@ -41,9 +42,9 @@ foreach (MidiEvent e in seq.Start ()) {
 }
 ```
 
-Call the `Advance` method in every frame. You should give a delta-time,
-and then it returns a set of `MidiEvent` which occurred between
-the previous frame and the current frame.
+Call the `Advance` method on every frame. You should give a delta-time, and
+then it returns a set of midi events which occurred between the previous frame
+and the current one.
 
 ```C#
 void Update() {
@@ -55,10 +56,10 @@ void Update() {
 }
 ```
 
-You can run it until the `Playing` property becomes false.
+Run it until the `Playing` property becomes false.
 
-For the detailed usage, see an example
-[here](https://github.com/keijiro/unity-smf-test).
+You can find a sample project in the [test branch]
+(https://github.com/keijiro/smflite/tree/test) of this repository.
 
 License
 -------
@@ -81,6 +82,5 @@ FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
 
 
